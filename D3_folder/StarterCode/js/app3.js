@@ -1,10 +1,10 @@
-var svgWidth = 460;
-var svgHeight = 700;
+var svgWidth = 600;
+var svgHeight = 600;
 
 var margin = {
   top: 30,
   right: 40,
-  bottom: 60,
+  bottom: 160,
   left: 50
 };
 
@@ -86,8 +86,7 @@ function updateToolTip(chosenXAxis, circlesGroup) {
 }
 
 
-d3.csv("data/data.csv", function(error, cData) {
-  if (error) throw error;
+d3.csv("data/data.csv").then(function(cData) {
     
 
   cData.forEach(function(data) {
@@ -96,7 +95,7 @@ d3.csv("data/data.csv", function(error, cData) {
     data.smokes = +data.smokes;
   });
     
-       // xLinearScale function above csv import
+  // xLinearScale function above csv import
   var xLinearScale = xScale(cData, chosenXAxis);
 
   // Create y scale function
@@ -124,7 +123,7 @@ d3.csv("data/data.csv", function(error, cData) {
     .append("circle")
     .attr("cx", d => xLinearScale(d[chosenXAxis]))
     .attr("cy", d => yLinearScale(d.poverty))
-    .attr("r", 20)
+    .attr("r", 8)
     .attr("fill", "blue")
     .attr("opacity", ".5");
 
@@ -179,7 +178,7 @@ labelsGroup.selectAll("text")
 
      // functions here found above csv import
      // updates x scale for new data
-     xLinearScale = xScale(hairData, chosenXAxis);
+     xLinearScale = xScale(cData, chosenXAxis);
 
      // updates x axis with transition
      xAxis = renderAxes(xLinearScale, xAxis);
@@ -211,10 +210,3 @@ labelsGroup.selectAll("text")
  });  
 
 });
-
-
-
-
-
-
-
